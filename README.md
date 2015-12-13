@@ -28,7 +28,7 @@ $ go get github.com/mattn/davfs/cmd/davfs
 At the first time, you need to create filesystem for database drivers you specified like below.
 
 ```
-$ davfs -driver=sqlite3 -source=fs.db -init
+$ davfs -driver=sqlite3 -source=fs.db -create
 ```
 
 ## License
