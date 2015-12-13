@@ -22,8 +22,8 @@ import (
 
 var (
 	addr   = flag.String("addr", ":9999", "server address")
-	driver = flag.String("driver", "sqlite3", "database driver")
-	source = flag.String("source", "fs.db", "database connection string")
+	driver = flag.String("driver", "file", "database driver")
+	source = flag.String("source", ".", "database connection string")
 	cred   = flag.String("cred", "", "credential for basic auth")
 	create = flag.Bool("create", false, "create filesystem")
 )
