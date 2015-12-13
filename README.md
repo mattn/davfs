@@ -1,6 +1,6 @@
 # davfs
 
-WebDAV filesystem using SQLite3 backend.
+WebDAV filesystem
 
 ## Usage
 
@@ -8,9 +8,16 @@ WebDAV filesystem using SQLite3 backend.
 $ davfs
 ```
 
-## Requirements
+## Supported Drivers
 
-golang
+|Driver    |Options to be specified           |
+|----------|----------------------------------|
+|file      |-driver=file -source=/path/to/root|
+|memory    |-driver=memory                    |
+|sqlite3   |-driver=sqlite3 -source=fs.db     |
+|mysql     |-driver=mysql -source=blah...     |
+|postgresql|-driver=postgres -source=blah...  |
+
 
 ## Installation
 
