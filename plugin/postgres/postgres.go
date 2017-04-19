@@ -13,12 +13,13 @@ import (
 
 	_ "github.com/lib/pq"
 	"github.com/mattn/davfs"
+	"golang.org/x/net/context"
 	"golang.org/x/net/webdav"
 )
 
 const createSQL = `
 create table filesystem(
-	name text not null, 
+	name text not null,
 	content text not null,
 	mode bigint not null,
 	mod_time timestamp not null,
@@ -88,7 +89,7 @@ func clearName(name string) (string, error) {
 	return name, nil
 }
 
-func (fs *FileSystem) Mkdir(name string, perm os.FileMode) error {
+func (fs *FileSystem) Mkdir(ctx context.Context, name string, perm os.FileMode) error {
 	fs.mu.Lock()
 	defer fs.mu.Unlock()
 
@@ -125,7 +126,7 @@ func (fs *FileSystem) Mkdir(name string, perm os.FileMode) error {
 	return nil
 }
 
-func (fs *FileSystem) OpenFile(name string, flag int, perm os.FileMode) (webdav.File, error) {
+func (fs *FileSystem) OpenFile(ctx context.Context, name string, flag int, perm os.FileMode) (webdav.File, error) {
 	fs.mu.Lock()
 	defer fs.mu.Unlock()
 
@@ -192,7 +193,7 @@ func (fs *FileSystem) removeAll(name string) error {
 	return err
 }
 
-func (fs *FileSystem) RemoveAll(name string) error {
+func (fs *FileSystem) RemoveAll(ctx context.Context, name string) error {
 	fs.mu.Lock()
 	defer fs.mu.Unlock()
 
@@ -203,7 +204,7 @@ func (fs *FileSystem) RemoveAll(name string) error {
 	return fs.removeAll(name)
 }
 
-func (fs *FileSystem) Rename(oldName, newName string) error {
+func (fs *FileSystem) Rename(ctx context.Context, oldName, newName string) error {
 	fs.mu.Lock()
 	defer fs.mu.Unlock()
 
@@ -275,7 +276,7 @@ func (fs *FileSystem) stat(name string) (os.FileInfo, error) {
 	return &fi, nil
 }
 
-func (fs *FileSystem) Stat(name string) (os.FileInfo, error) {
+func (fs *FileSystem) Stat(ctx context.Context, name string) (os.FileInfo, error) {
 	fs.mu.Lock()
 	defer fs.mu.Unlock()
 
